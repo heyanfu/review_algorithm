@@ -12,7 +12,7 @@ func main() {
 
 func selectionSort(a []int) {
 	length := len(a)
-	for i := 0; i < length - 1; i++ {
+	for i := 0; i < length-1; i++ {
 		minIndex := i
 		for j := i + 1; j < length; j++ {
 			if a[minIndex] > a[j] {
