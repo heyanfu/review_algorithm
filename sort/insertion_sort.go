@@ -22,3 +22,19 @@ func insertionSort(a []int) {
 		}
 	}
 }
+
+func insertionSort2(a []int) {
+	length := len(a)
+	var j int
+	for i := 1; i < length; i++ {
+		t := a[i]
+		for j = i; j > 0; j-- {
+			if t < a[j-1] {
+				a[j] = a[j-1]
+			} else {
+				break
+			}
+		}
+		a[j] = t
+	}
+}
