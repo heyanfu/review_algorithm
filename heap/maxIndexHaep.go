@@ -18,6 +18,10 @@ func main() {
 	heap.insert(9, 30)
 	fmt.Println(heap.data)
 	fmt.Println(heap.indexes)
+	fmt.Println("=============")
+	heap.changeIndex(1, 100)
+	fmt.Println(heap.data)
+	fmt.Println(heap.indexes)
 }
 
 type MaxIndexHeap struct {
@@ -39,11 +43,11 @@ func (heap *MaxIndexHeap) insert(index int, val int) {
 
 	heap.data = append(heap.data, val)
 	heap.indexes = append(heap.indexes, index+1)
-	heap.shiftUp()
+	heap.shiftUp(heap.count)
 }
 
-func (heap *MaxIndexHeap) shiftUp() {
-	index := heap.count
+func (heap *MaxIndexHeap) shiftUp(i int) {
+	index := i
 	for index > 1 && heap.data[heap.indexes[index/2]] < heap.data[heap.indexes[index]] {
 		heap.indexes[index/2], heap.indexes[index] = heap.indexes[index], heap.indexes[index/2]
 		index /= 2
@@ -59,13 +63,13 @@ func (heap *MaxIndexHeap) deleteMax() int {
 	heap.data = heap.data[:heap.count]
 	heap.indexes = heap.indexes[:heap.count]
 	heap.count--
-	heap.shiftDown()
+	heap.shiftDown(1)
 
 	return val
 }
 
-func (heap *MaxIndexHeap) shiftDown() {
-	index := 1
+func (heap *MaxIndexHeap) shiftDown(i int) {
+	index := i
 	for index*2 <= heap.count {
 		childIndex := index * 2
 		if childIndex+1 <= heap.count && heap.data[heap.indexes[childIndex+1]] > heap.data[heap.indexes[childIndex]] {
@@ -84,4 +88,16 @@ func (heap *MaxIndexHeap) getMax() int {
 		return -1
 	}
 	return heap.data[1]
+}
+
+func (heap *MaxIndexHeap) changeIndex(index, val int) {
+	heap.data[index] = val
+	for i := 1; i <= heap.count; i++ {
+		if heap.indexes[i] == index {
+			heap.shiftUp(i)
+			heap.shiftDown(i)
+
+			return
+		}
+	}
 }
