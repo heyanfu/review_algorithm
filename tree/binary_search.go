@@ -1,18 +1,17 @@
 package main
 
-import "fmt"
-
 func main() {
 	arr := []int{6, 4, 7, 1, 3, 2, 5, 9, 8, 0}
 	var root *Node
 	for _, v := range arr {
 		root = root.addNode(v, v)
 	}
-	preOrder(root)
-	fmt.Println(root.hasKey(8))
-	fmt.Println(root.hasKey(10))
-	fmt.Println(root.getValByKey(1))
-	fmt.Println(root.getValByKey(11))
+	//preOrder(root)
+	//fmt.Println(root.hasKey(8))
+	//fmt.Println(root.hasKey(10))
+	//fmt.Println(root.getValByKey(1))
+	//fmt.Println(root.getValByKey(11))
+	levelOrder(root)
 }
 
 type Node struct {

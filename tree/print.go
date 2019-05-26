@@ -28,3 +28,22 @@ func postOrder(root *Node) {
 		fmt.Println()
 	}
 }
+
+func levelOrder(root *Node) {
+	if root == nil {
+		return
+	}
+	queue := make([]*Node, 0)
+	queue = append(queue, root)
+	for len(queue) > 0 {
+		node := queue[0]
+		fmt.Println(node.key)
+		queue = queue[1:]
+		if node.left != nil {
+			queue = append(queue, node.left)
+		}
+		if node.right != nil {
+			queue = append(queue, node.right)
+		}
+	}
+}
