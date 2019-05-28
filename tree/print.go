@@ -37,7 +37,7 @@ func levelOrder(root *Node) {
 	queue = append(queue, root)
 	for len(queue) > 0 {
 		node := queue[0]
-		fmt.Println(node.key)
+		fmt.Printf("%d ", node.key)
 		queue = queue[1:]
 		if node.left != nil {
 			queue = append(queue, node.left)

@@ -11,6 +11,9 @@ func main() {
 	//fmt.Println(root.hasKey(10))
 	//fmt.Println(root.getValByKey(1))
 	//fmt.Println(root.getValByKey(11))
+	//root = root.delMinNode()
+	//root = root.delMaxNode()
+	root = root.delNode(1)
 	levelOrder(root)
 }
 
@@ -59,5 +62,64 @@ func (node *Node) getValByKey(key int) int {
 		return node.left.getValByKey(key)
 	} else {
 		return node.right.getValByKey(key)
+	}
+}
+
+func (node *Node) getMinNode() *Node {
+	if node.left == nil {
+		return node
+	}
+
+	return node.left.getMinNode()
+}
+
+func (node *Node) getMaxNode() *Node {
+	if node.right == nil {
+		return node
+	}
+
+	return node.right.getMaxNode()
+}
+
+func (node *Node) delMinNode() *Node {
+	if node.left == nil {
+		return node.right
+	}
+	node.left = node.left.delMinNode()
+
+	return node
+}
+
+func (node *Node) delMaxNode() *Node {
+	if node.right == nil {
+		return node.left
+	}
+	node.right = node.right.delMaxNode()
+
+	return node
+}
+
+func (node *Node) delNode(key int) *Node {
+	if node == nil {
+		return nil
+	}
+	if key < node.key {
+		node.left = node.left.delNode(key)
+		return node
+	} else if key > node.key {
+		node.right = node.right.delNode(key)
+		return node
+	} else {
+		if node.left == nil {
+			return node.right
+		}
+		if node.right == nil {
+			return node.left
+		}
+		tempNode := node.right.getMinNode()
+		tempNode.right = node.right.delMinNode()
+		tempNode.left = node.left
+
+		return tempNode
 	}
 }
